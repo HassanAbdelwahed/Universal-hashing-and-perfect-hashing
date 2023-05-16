@@ -3,23 +3,51 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        //System.out.print("Enter size of dictionary: ");
-        //int n = input.nextInt(); // dictionary size
-        PerfectHashingSpaceN2 perfectHashingSpaceN2 = new PerfectHashingSpaceN2(8);
-        System.out.println(perfectHashingSpaceN2.insertKey(5));
-        System.out.println(perfectHashingSpaceN2.insertKey(10));
-        System.out.println(perfectHashingSpaceN2.insertKey(20));
-        System.out.println(perfectHashingSpaceN2.insertKey(40));
-        System.out.println(perfectHashingSpaceN2.insertKey(30));
-        System.out.println(perfectHashingSpaceN2.insertKey(10));
-        System.out.println(perfectHashingSpaceN2.insertKey(20));
-        System.out.println(perfectHashingSpaceN2.insertKey(40));
-        System.out.println(perfectHashingSpaceN2.insertKey(30));
-        System.out.print("count rehash: ");
-        System.out.println(perfectHashingSpaceN2.getCountRehash());
-        //System.out.println(perfectHashingSpaceN2.getKey(5));
-        System.out.println(perfectHashingSpaceN2.getKey(800));
+        PerfectHashingSpaceN2 perfectHashingSpaceN2 = new PerfectHashingSpaceN2(7);
+        PerfectHashingSpaceN perfectHashingSpaceN = new PerfectHashingSpaceN(5);
+        StringMapping stringMapping = new StringMapping();
+
+
+        //System.out.print("insert hello" );
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hello")));
+        //System.out.print("insert hello" );
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hello")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("ahmed")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("ashraf")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("magdy")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("omar")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hassan")));
+        System.out.println(perfectHashingSpaceN.search(stringMapping.getMapping("ahmed")));
+        //perfectHashingSpaceN.printTables();
+        System.out.println(perfectHashingSpaceN.delete(stringMapping.getMapping("ahmed")));
+        System.out.println(perfectHashingSpaceN.search(stringMapping.getMapping("ahmed")));
+        /*
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("khamis")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("abbas")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("omar")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hassan")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("khamis")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("abbas")));*/
+
+        // perfectHashingSpaceN.printTables();
+        /*
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hello")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hello")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("ahmed")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("omar")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("hassan")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("khamis")));
+        System.out.println(perfectHashingSpaceN.insert(stringMapping.getMapping("abbas")));
+
+        /*
+        System.out.println(perfectHashingSpaceN.insert(10));
+        System.out.println(perfectHashingSpaceN.insert(20));
+        System.out.println(perfectHashingSpaceN.insert(30));
+        System.out.println(perfectHashingSpaceN.insert(40));
+        System.out.println(perfectHashingSpaceN.insert(50));
+        System.out.println(perfectHashingSpaceN.insert(60));*/
+
+        // perfectHashingSpaceN.printTables();
 
     }
 

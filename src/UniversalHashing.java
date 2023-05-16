@@ -19,17 +19,17 @@ public class UniversalHashing {
         generateMatrix();
     }
     public void generateMatrix(){
+        if (b == 0)
+            return;
         for (int i = 0; i < h.length; i++){
             for (int j = 0; j < h[0].length; j++){
                 h[i][j] = rand.nextInt(2);
             }
         }
-        //System.out.println(Arrays.deepToString(h));
     }
     public void convertDecimalToBinary(int key){
         x = new int[U][1];
         String temp = Integer.toBinaryString(key);
-        //System.out.println(temp);
         int j = temp.length() - 1;
         for (int i = x.length - 1; i >= 0; i--){
             x[i][0] = Integer.parseInt(String.valueOf(temp.charAt(j)));
@@ -59,12 +59,11 @@ public class UniversalHashing {
         return x;
     }
     public int getHashValue(int key){
+        if (b == 0)
+            return 0;
         convertDecimalToBinary(key);
         multiply();
-        //System.out.println(Arrays.deepToString(h_X));
-        //System.out.println(convertBinaryToDecimal());
-        //System.out.println(Arrays.deepToString(h));
-        //System.out.println(Arrays.deepToString(x));
+
         return convertBinaryToDecimal();
     }
 

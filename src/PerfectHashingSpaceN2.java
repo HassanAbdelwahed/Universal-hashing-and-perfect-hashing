@@ -3,8 +3,9 @@ import java.util.Arrays;
 
 public class PerfectHashingSpaceN2 {
     Integer[] table;
-    ArrayList<Integer> keys = new ArrayList<>();
-    int maxSize;
+    boolean flag = false;
+    ArrayList<Object> keys = new ArrayList<>();
+    int maxSize = 0;
     int currentSize = 0;
     int countRehash = 0;
     UniversalHashing universalHashing;
@@ -14,29 +15,45 @@ public class PerfectHashingSpaceN2 {
         this.universalHashing = new UniversalHashing(n * n);
         maxSize = n;
     }
-    public boolean insertKey(int key){
-        if (currentSize == maxSize)
+    public boolean insert(int key){
+        if (currentSize == maxSize || this.search(key)){
+            System.out.println(key + " exist");
             return false;
+        }
+
         int hashValue = universalHashing.getHashValue(key);
-        //System.out.println(hashValue);
         if (table[hashValue] == null){
             table[hashValue] = key;
             currentSize++;
-        } else if (table[hashValue] == key) {
+        } else if (table[hashValue].equals(key)) {
             return false;
         } else {
             reHash();
-            countRehash++;
-            insertKey(key);
+            insert(key);
         }
-        //System.out.println(Arrays.deepToString(table));
+        return true;
+    }
+
+    public boolean insertSecondLevel(int key){ // for O(N) space method
+        if (currentSize != 0 && search(key)){
+            return false;
+        }
+        if (flag){
+            this.maxSize++;
+        }
+        this.universalHashing = new UniversalHashing(maxSize * maxSize);
+        this.reHash();
+        this.insert(key);
+        flag = true;
         return true;
     }
 
     public void reHash(){
         // save elements to rehash it
+        countRehash = 0;
+        countRehash++;
         ArrayList<Integer> keys = new ArrayList<>();
-        for (int i = 0; i < table.length; i++){
+        for (int i = 0; i < table.length; i++) {
             if (table[i] != null){
                 keys.add(table[i]);
             }
@@ -47,24 +64,72 @@ public class PerfectHashingSpaceN2 {
         this.table = new Integer[(int) Math.pow(maxSize, 2)];
 
         for (int i = 0; i < keys.size(); i++){
-            int hashValue = universalHashing.getHashValue(keys.get(i));
+            int hashValue = this.universalHashing.getHashValue(keys.get(i));
             if (table[hashValue] == null){
                 table[hashValue] = keys.get(i);
                 currentSize++;
             }else {
+                countRehash++;
                 this.universalHashing.updateHashMatrix();
                 this.table = new Integer[(int) Math.pow(maxSize, 2)];
                 i = -1;
                 currentSize = 0;
             }
         }
+        // System.out.print("collision");
+        // System.out.println("number of rehashing: " + countRehash);
+
     }
-    public boolean getKey(int key){
+    public boolean search(int key){
         int hashValue = this.universalHashing.getHashValue(key);
-        //System.out.println(hashValue);
-        return table[hashValue] != null;
+        return table[hashValue] != null && table[hashValue] == key;
     }
+
+    public boolean delete(int key){
+        if (!search(key)){
+            return false;
+        }
+        int hashValue = this.universalHashing.getHashValue(key);
+        table[hashValue] = null;
+        this.currentSize--;
+        return true;
+    }
+    public boolean deleteSecondLevel(int key){
+        if (!search(key)){
+            return false;
+        }
+        int hashValue = this.universalHashing.getHashValue(key);
+        table[hashValue] = null;
+        this.maxSize--;
+        this.currentSize--;
+        this.universalHashing = new UniversalHashing(maxSize * maxSize);
+        this.reHash();
+        return true;
+    }
+
+    public boolean batchInsert(int words[]){
+        boolean success = true;
+        for (int i = 0; i < words.length; i++){
+            success = this.insert(words[i]);
+        }
+        return success;
+    }
+
+    public boolean batchDelete(int words[]){
+        boolean success = true;
+        for (int i = 0; i < words.length; i++){
+            success = this.delete(words[i]);
+        }
+        return success;
+    }
+
     public int getCountRehash(){
         return countRehash;
+    }
+    public int getSize(){return table.length;}
+
+    public void printTable(){
+        System.out.println("size = " + table.length);
+        System.out.println(Arrays.deepToString(table));
     }
 }
