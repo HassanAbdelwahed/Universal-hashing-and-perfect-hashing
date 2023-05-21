@@ -25,5 +25,7 @@ public class Node {
         return perfectHashingSpaceN2;
     }
 
+    public int countRehash(){return perfectHashingSpaceN2.getCountRehash();}
+
 
 }

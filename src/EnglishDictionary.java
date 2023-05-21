@@ -1,6 +1,8 @@
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class EnglishDictionary {
     private int hashType;
@@ -54,11 +56,13 @@ public class EnglishDictionary {
         }
         int[] words2 = new int[words.size()];
         for(int i = 0; i < words.size(); i++) words2[i] = words.get(i);
+
         if(hashType == 1) {
             return hashSpaceN.batchInsert(words2);
         }else{
             return hashSpaceN2.batchInsert(words2);
         }
+
     }
 
     public boolean batchDelete(String fpath) {
@@ -79,6 +83,14 @@ public class EnglishDictionary {
             return hashSpaceN.batchDelete(words2);
         }else{
             return hashSpaceN2.batchDelete( words2);
+        }
+    }
+
+    public void printTable(){
+        if(hashType == 1) {
+            hashSpaceN.printTable();
+        }else{
+            hashSpaceN2.printTable();
         }
     }
 }

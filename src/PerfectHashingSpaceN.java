@@ -4,6 +4,7 @@ import java.util.Arrays;
 public class PerfectHashingSpaceN {
     Node[] table;
     UniversalHashing universalHashing;
+    int countRehash = 0;
     PerfectHashingSpaceN(int n){
         this.table = new Node[n];
         this.universalHashing = new UniversalHashing(n);
@@ -14,7 +15,14 @@ public class PerfectHashingSpaceN {
         if (table[hashValue] == null){                     // no collision
             table[hashValue] = new Node();
         }
-        return table[hashValue].insert(key);
+        // count rehashing before insert
+        int count = table[hashValue].countRehash();
+        boolean success = table[hashValue].insert(key);
+        // count rehashing after insert
+        int count2 = table[hashValue].countRehash();
+        this.countRehash += count2 - count;
+        // System.out.println("insert " + key + success);
+        return success;
     }
 
     public boolean search(int key){
@@ -40,19 +48,28 @@ public class PerfectHashingSpaceN {
     public boolean batchInsert(int words[]){
         boolean success = true;
         for (int i = 0; i < words.length; i++){
-            success = this.insert(words[i]);
+            boolean res = this.insert(words[i]);
+            if (!res){
+                success = res;
+                System.out.println("Insert " + words[i] + " failed");
+            }
+
         }
         return success;
     }
     public boolean batchDelete(int words[]){
         boolean success = true;
         for (int i = 0; i < words.length; i++){
-            success = this.delete(words[i]);
+            boolean res = this.delete(words[i]);
+            if (!res){
+                success = res;
+                System.out.println("Delete " + words[i] + " failed");
+            }
         }
         return success;
     }
 
-    public void printTables(){
+    public void printTable(){
         for (int i = 0; i < table.length; i++){
             if (table[i] == null){
                 System.out.println("null");
@@ -60,6 +77,9 @@ public class PerfectHashingSpaceN {
                 System.out.println(Arrays.deepToString(table[i].getPerfectHashingSpaceN2().table));
             }
         }
+    }
+    public int getCountRehash(){
+        return countRehash;
     }
 
 

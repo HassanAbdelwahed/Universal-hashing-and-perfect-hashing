@@ -5,7 +5,7 @@ import java.util.Random;
 public class StringMapping {
     Random random = new Random();
     Map<String, Integer> map = new HashMap<>();
-    public Integer getMapping(String str){
+    public int getMapping(String str){
         if (map.containsKey(str)){
             return map.get(str);
         }
