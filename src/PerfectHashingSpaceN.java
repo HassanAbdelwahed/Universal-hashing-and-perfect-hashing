@@ -78,6 +78,17 @@ public class PerfectHashingSpaceN {
             }
         }
     }
+
+    public int getSize(){
+        int size = 0;
+        for (int i = 0; i < table.length; i++){
+            if (table[i] == null)
+                continue;
+            size += table[i].getPerfectHashingSpaceN2().getSize();
+        }
+        size += this.table.length;
+        return size;
+    }
     public int getCountRehash(){
         return countRehash;
     }

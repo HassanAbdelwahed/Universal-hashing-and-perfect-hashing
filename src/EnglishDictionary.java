@@ -13,9 +13,9 @@ public class EnglishDictionary {
     public EnglishDictionary(int hashType){
         this.hashType = hashType;
         if(hashType == 1){
-            hashSpaceN = new PerfectHashingSpaceN(2000000);
+            hashSpaceN = new PerfectHashingSpaceN(500);
         }else if(hashType == 2){
-            hashSpaceN2 = new PerfectHashingSpaceN2(10000);
+            hashSpaceN2 = new PerfectHashingSpaceN2(500);
         }
     }
     public boolean insert(String word){
@@ -42,6 +42,7 @@ public class EnglishDictionary {
             return hashSpaceN2.search(key);
         }
     }
+
     public boolean batchInsert(String fpath) {
         ArrayList<Integer> words = new ArrayList<Integer>();
         int index = 0;
@@ -91,6 +92,22 @@ public class EnglishDictionary {
             hashSpaceN.printTable();
         }else{
             hashSpaceN2.printTable();
+        }
+    }
+
+    public int getSize(){
+        if(hashType == 1) {
+            return hashSpaceN.getSize();
+        }else{
+            return hashSpaceN2.getSize();
+        }
+    }
+
+    public int getCountRehash(){
+        if(hashType == 1) {
+            return hashSpaceN.getCountRehash();
+        }else{
+            return hashSpaceN2.getCountRehash();
         }
     }
 }

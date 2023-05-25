@@ -18,10 +18,10 @@ public class Main {
         }
         EnglishDictionary dictionary = new EnglishDictionary(hashType);
         while(true) {
-            System.out.println("\n[1-insert, 2-delete, 3-search, 4-batch insert, 5-batch delete,  6-exit]");
+            System.out.println("\n[1-insert, 2-delete, 3-search, 4-batch insert, 5-batch delete,  6-get Size, 7-rehashing count, 8-exit]");
             System.out.print("Insert operaton number you want to perform: ");
             operationNumber = scanner.nextInt();
-            if(operationNumber == 6 ) break;
+            if(operationNumber == 8 ) break;
             switch (operationNumber) {
                 case 1:
                     System.out.print("Word to be inserted: ");
@@ -67,6 +67,12 @@ public class Main {
                     } else {
                         System.out.println("there are words that don't exist");
                     }
+                    break;
+                case 6:
+                    System.out.print("Size = " + dictionary.getSize());
+                    break;
+                case 7:
+                    System.out.println("Rehashing count = " + dictionary.getCountRehash());
                     break;
                 default:
                     System.out.println("invalid input");

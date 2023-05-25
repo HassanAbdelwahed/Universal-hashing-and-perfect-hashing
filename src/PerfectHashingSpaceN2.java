@@ -4,7 +4,6 @@ import java.util.Arrays;
 public class PerfectHashingSpaceN2 {
     Integer[] table;
     //boolean flag = false;
-    ArrayList<Object> keys = new ArrayList<>();
     int maxSize = 0;
     int currentSize = 0;
     int countRehash = 0;
@@ -71,7 +70,6 @@ public class PerfectHashingSpaceN2 {
 */
     public void reHash(){
         // save elements to rehash it
-
         ArrayList<Integer> keys = new ArrayList<>();
         for (int i = 0; i < table.length; i++) {
             if (table[i] != null){
@@ -95,7 +93,7 @@ public class PerfectHashingSpaceN2 {
                 currentSize = 0;
             }
         }
-        countRehash++;
+        this.countRehash++;
         // System.out.print("collision");
         // System.out.println("number of rehashing: " + countRehash);
     }
