@@ -10,12 +10,12 @@ public class EnglishDictionary {
     PerfectHashingSpaceN2 hashSpaceN2;
     StringMapping stringMapping = new StringMapping();
 
-    public EnglishDictionary(int hashType){
+    public EnglishDictionary(int hashType, int size){
         this.hashType = hashType;
         if(hashType == 1){
-            hashSpaceN = new PerfectHashingSpaceN(500);
+            hashSpaceN = new PerfectHashingSpaceN(size);
         }else if(hashType == 2){
-            hashSpaceN2 = new PerfectHashingSpaceN2(500);
+            hashSpaceN2 = new PerfectHashingSpaceN2(size);
         }
     }
     public boolean insert(String word){

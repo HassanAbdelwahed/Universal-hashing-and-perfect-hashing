@@ -16,7 +16,9 @@ public class Main {
             if(hashType == 1 || hashType == 2) break;
             else System.out.println("Invalid type");
         }
-        EnglishDictionary dictionary = new EnglishDictionary(hashType);
+        System.out.print("Insert size of hash table : ");
+        int hashTableSize = scanner.nextInt();
+        EnglishDictionary dictionary = new EnglishDictionary(hashType, hashTableSize);
         while(true) {
             System.out.println("\n[1-insert, 2-delete, 3-search, 4-batch insert, 5-batch delete,  6-get Size, 7-rehashing count, 8-exit]");
             System.out.print("Insert operaton number you want to perform: ");
